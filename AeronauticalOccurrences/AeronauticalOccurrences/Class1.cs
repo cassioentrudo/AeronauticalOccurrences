@@ -24,24 +24,33 @@ namespace AeronauticalOccurrences
                 //tenta abrir o CSV e ler todos os registros de uma vez só
                 try
                 {
+                    
                     var leitor = new CsvReader(ies_stream);
+                    
+                    leitor.Configuration.BadDataFound = null;
+                    leitor.Configuration.MissingFieldFound = null;
+                    
+                    
+                    leitor.Read();
                     leitor.ReadHeader();
-                    var dados = leitor.GetRecords<IES>().ToList();
-
+                 
+                     var dados = leitor.GetRecords<IES>().ToList();
+                    
                     //lidos os registros, itera todos e os adiciona no dicionário,
                     //conforme necessário
                     foreach (IES dado in dados)
                     {
-                        if (dicionario.TryGetValue(dado.codigo_ies, out dado_existente))
+                        if (dicionario.TryGetValue(dado.CO_IES, out dado_existente))
                             dado_existente.ies = dado;
                         else
-                            dicionario.Add(dado.codigo_ies, new DadosIES(dado.codigo_ies, dado));
+                            dicionario.Add(dado.CO_IES, new DadosIES(dado.CO_IES, dado));
                     }
                 }
                 //se há qualquer problema na leitura, mostra caixa de exception
                 catch (Exception e)
                 {
                     MessageBox.Show(e.ToString());
+                    
                 }
             }
 
