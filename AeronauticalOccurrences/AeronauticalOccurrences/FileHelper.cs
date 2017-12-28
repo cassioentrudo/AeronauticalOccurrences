@@ -5,13 +5,11 @@ using System.Linq;
 using System.Windows.Forms;
 using CsvHelper;
 
-
 namespace AeronauticalOccurrences
 {    
-    class Class1
+    class FileHelper
     {
-        public static void LerCSV(string caminho_csv_dados)
-                                                        
+        public static void LerCSV(string caminho_csv_dados)                                                        
         {   ///<summary>
             ///classe que le os dados csv e cria um dicionario
             ///</summary>
