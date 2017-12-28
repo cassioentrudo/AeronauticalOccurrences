@@ -31,7 +31,7 @@ namespace AeronauticalOccurrences
         public string REGIAOIES { get; set; }
        
         [ProtoMember(8)]
-        public int COUFIES { get; set; }
+        public string COUFIES { get; set; }
      
         [ProtoMember(9)]
         public string NOMEUFIES { get; set; }
@@ -43,49 +43,49 @@ namespace AeronauticalOccurrences
         public string MUNICIPIOIES { get; set; }
       
         [ProtoMember(12)]
-        public int COMUNICIES { get; set; }
+        public string COMUNICIES { get; set; }
        
         [ProtoMember(13)]
         public string COMUNICIES12 { get; set; }
       
         [ProtoMember(14)]
-        public int LOCIES { get; set; }
+        public string LOCIES { get; set; }
    
         [ProtoMember(15)]
         public string LOCALIES { get; set; }
    
         [ProtoMember(16)]
-        public int ORG { get; set; }
+        public string ORG { get; set; }
      
         [ProtoMember(17)]
         public string NOMEORG { get; set; }
        
         [ProtoMember(18)]
-        public int COREDE { get; set; }
+        public string COREDE { get; set; }
       
         [ProtoMember(19)]
         public string REDE { get; set; }
       
         [ProtoMember(20)]
-        public int CO_DEP { get; set; }
+        public string CO_DEP { get; set; }
        
         [ProtoMember(21)]
         public string DEPADM { get; set; }
        
         [ProtoMember(22)]
-        public int DEP5 { get; set; }
+        public string DEP5 { get; set; }
       
         [ProtoMember(23)]
         public string DEPADM5 { get; set; }
      
         [ProtoMember(24)]
-        public int MANT { get; set; }
+        public string MANT { get; set; }
         
         [ProtoMember(25)]
         public string MANTENEDORA { get; set; }
       
         [ProtoMember(26)]
-        public int NU_CEP { get; set; }
+        public string NU_CEP { get; set; }
   
         [ProtoMember(27)]
         public string DS_ENDERECO { get; set; }
@@ -115,7 +115,7 @@ namespace AeronauticalOccurrences
         public string NO_PROCURADOR_INTITUCIONAL { get; set; }
 
         [ProtoMember(36)]
-        public int NU_CPF_PROCURADOR { get; set; }
+        public string NU_CPF_PROCURADOR { get; set; }
 
         [ProtoMember(37)]
         public string NU_TELEFONE_PROCURADOR { get; set; }
@@ -124,6 +124,8 @@ namespace AeronauticalOccurrences
         public string TX_EMAIL_PROCURADOR { get; set; }
  
         [ProtoMember(39)]
-        public int NIES { get; set; }
-    }  
+        public string NIES { get; set; }
+    }
+
+
 }

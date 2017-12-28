@@ -14,7 +14,7 @@ namespace AeronauticalOccurrences
         /// valor inteiro
         /// </value>
         [ProtoMember(1)]
-        public int codigo_ies { get; set; }
+        public int CO_IES { get; set; }
 
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace AeronauticalOccurrences
         /// <param name="ies">Informações sobre o ies.</param> 
         public DadosIES(int codigo_ies, IES ies)
         {
-            this.codigo_ies = codigo_ies;
+            this.CO_IES = codigo_ies;
             this.ies = ies;
         }
 
@@ -42,7 +42,7 @@ namespace AeronauticalOccurrences
         /// </summary>
         public DadosIES()
         {
-            this.codigo_ies = 0;
+            this.CO_IES = 0;
             this.ies = null;
         }
     }

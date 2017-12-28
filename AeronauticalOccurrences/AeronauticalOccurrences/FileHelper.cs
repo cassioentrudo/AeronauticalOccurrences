@@ -29,10 +29,11 @@ namespace AeronauticalOccurrences
                     leitor.Configuration.MissingFieldFound = null;
                     
                     
+
                     leitor.Read();
                     leitor.ReadHeader();
-                 
-                     var dados = leitor.GetRecords<IES>().ToList();
+                    
+                    var dados = leitor.GetRecords<IES>().ToList();
                     
                     //lidos os registros, itera todos e os adiciona no dicionário,
                     //conforme necessário
@@ -43,10 +44,12 @@ namespace AeronauticalOccurrences
                         else
                             dicionario.Add(dado.CO_IES, new DadosIES(dado.CO_IES, dado));
                     }
+                    
                 }
+               
                 //se há qualquer problema na leitura, mostra caixa de exception
                 catch (Exception e)
-                {
+                { 
                     MessageBox.Show(e.ToString());
                     
                 }
