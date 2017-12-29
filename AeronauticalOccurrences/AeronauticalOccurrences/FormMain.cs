@@ -20,7 +20,11 @@ namespace AeronauticalOccurrences
         private void Form1_Load(object sender, EventArgs e)
         {
             string path = AppDomain.CurrentDomain.BaseDirectory + "..\\..\\..\\data\\CADASTRO_DAS_IES_2011.csv";
+            
             FileHelper.LerCSV(path);
+
+            
         }
+
     }
 }

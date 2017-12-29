@@ -4,6 +4,7 @@ using ProtoBuf;
 
 namespace AeronauticalOccurrences
 {
+    [ProtoContract]
     class DadosIES
     {
 
