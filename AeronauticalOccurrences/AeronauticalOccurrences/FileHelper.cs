@@ -137,11 +137,10 @@ namespace AeronauticalOccurrences
 
         /// <summary>
         /// Atualiza a arvore dado a chave que quer mudar e o novo valor
-        /// </summary>
-        /// <param name="key">chave que deseja mudar</param>
+        /// </summary
         /// <param name="new_value">novo valor para atualizar a chave</param>
         /// <returns>Returna true se a chave foi encontrada e atulizada</returns
-        public static bool Atualiza(int key, DadosIES new_value)
+        public static bool Atualiza(DadosIES new_value)
         {
             
             bool output = false;
@@ -162,10 +161,76 @@ namespace AeronauticalOccurrences
                 using (var tree = new BPlusTree<int, DadosIES>(tree_options))
                 {
                     //encontra a chave e atualiza o valor
-                    output = tree.TryUpdate(key, new_value);
+                    output = tree.TryUpdate(new_value.CO_IES, new_value);
                 }
             }
             return output;
+        }
+
+
+        /// <summary>
+        /// Adiciona uma chave e seu valor a arvore se ela nao existir ainda.
+        /// </summary>
+        /// <param name="new_value">novo valor para adicionar na arvore</param>
+        /// <returns>Returna true se a chave foi nao existir ainda e for adicionada (eu acho)</returns
+        public static bool Adiciona(DadosIES new_value)
+        {
+
+            bool output = false;
+
+            //Cria o componente responsável por desserializar os dados a serem lidos da árvore
+            ProtoNetSerializer<DadosIES> serializer = new ProtoNetSerializer<DadosIES>();
+
+            //Prepara as opções da árvore
+            var tree_options = new BPlusTree<int, DadosIES>.OptionsV2(PrimitiveSerializer.Int32, serializer);
+
+            tree_options.CalcBTreeOrder(8, 30);
+            tree_options.CreateFile = CreatePolicy.IfNeeded;
+            tree_options.FileName = pathBtree;
+
+            //Checa se o arquivo já existe
+            if (File.Exists(pathBtree))
+            {
+                using (var tree = new BPlusTree<int, DadosIES>(tree_options))
+                {
+                    //encontra a chave e atualiza o valor
+                    output = tree.TryAdd(new_value.CO_IES, new_value);
+                }
+            }
+            return output;
+        }
+
+        /// <summary>
+        /// remove uma chave e seu valor da arvore se existir.
+        /// </summary>
+        /// <param name="key">chave para excluir</param>
+        /// <returns>Returna true se a chave existir e for excluida (eu acho)</returns
+        public static bool Remove(int key )
+        {
+
+            bool output = false;
+
+            //Cria o componente responsável por desserializar os dados a serem lidos da árvore
+            ProtoNetSerializer<DadosIES> serializer = new ProtoNetSerializer<DadosIES>();
+
+            //Prepara as opções da árvore
+            var tree_options = new BPlusTree<int, DadosIES>.OptionsV2(PrimitiveSerializer.Int32, serializer);
+
+            tree_options.CalcBTreeOrder(8, 30);
+            tree_options.CreateFile = CreatePolicy.IfNeeded;
+            tree_options.FileName = pathBtree;
+
+            //Checa se o arquivo já existe
+            if (File.Exists(pathBtree))
+            {
+                using (var tree = new BPlusTree<int, DadosIES>(tree_options))
+                {
+                    //encontra a chave e atualiza o valor
+                    output = tree.Remove(key);
+                }
+            }
+
+                return output;
         }
     }//class
 }//namespcae
