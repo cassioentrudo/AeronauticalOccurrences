@@ -14,8 +14,7 @@ namespace AeronauticalOccurrences
     ///</summary>
     class FileHelper
     {
-        public static string path_btree { get; set; }
-
+        protected static string pathBtree = AppDomain.CurrentDomain.BaseDirectory + "..\\..\\..\\data\\arvore.bin";
 
         ///<summary>
         ///Le o arquivo csv, e cria um dicionario que a chave é o código do ies CO_IES,
@@ -26,21 +25,15 @@ namespace AeronauticalOccurrences
         {  
             var dicionario = new Dictionary<int, DadosIES>();
             DadosIES dado_existente;
-            
-            // leitura do arquivo de dados
-            using (var ies_stream = new StreamReader(caminho_csv_dados))
+                
+            using (StreamReader ies_stream = new StreamReader(caminho_csv_dados))
             {
-                //tenta abrir o CSV e ler todos os registros de uma vez só
                 try
-                {
-                    
-                    var leitor = new CsvReader(ies_stream);
+                {       
+                    CsvReader leitor = new CsvReader(ies_stream);
                     
                     leitor.Configuration.BadDataFound = null;
                     leitor.Configuration.MissingFieldFound = null;
-                    
-                    
-
                     leitor.Read();
                     leitor.ReadHeader();
                     
@@ -57,18 +50,16 @@ namespace AeronauticalOccurrences
                     }
                     
                 }
-               
-                //se há qualquer problema na leitura, mostra caixa de exception
                 catch (Exception e)
                 { 
                     MessageBox.Show(e.ToString());
                     
                 }
-
             }
+
             //Cria a árvore B+ a ser utilizada no programa com os dados lidos dos arquivos CSV
             CriaArvore(dicionario);
-        } //lerCSV()
+        }
 
 
         /// <summary>
@@ -80,16 +71,15 @@ namespace AeronauticalOccurrences
         {
             //Cria o componente responsável por serializar os dados a serem escritos na árvore
             ProtoNetSerializer<DadosIES> serializer = new ProtoNetSerializer<DadosIES>();
-            string path_btree = AppDomain.CurrentDomain.BaseDirectory + "..\\..\\..\\data\\arvore.bin";
             //Prepara as opções da árvore
             var tree_options = new BPlusTree<int, DadosIES>.OptionsV2(PrimitiveSerializer.Int32, serializer);
 
             tree_options.CalcBTreeOrder(8, 30);
             tree_options.CreateFile = CreatePolicy.IfNeeded;
-            tree_options.FileName = path_btree;
+            tree_options.FileName = pathBtree;
 
             //Checa se o arquivo já existe
-            if (!File.Exists(path_btree))
+            if (!File.Exists(pathBtree))
             {
                 using (var tree = new BPlusTree<int, DadosIES>(tree_options))
                 {
@@ -101,13 +91,50 @@ namespace AeronauticalOccurrences
                     }
                 }
             }
-            //Erro, a árvore já existe!
-            else return false;
+            
+            else
+                return false;
 
-            //Se não houve erros retorna true
             return true;
-        } //criaArvore()
+        }
 
-    
-    }//class
-}//namespace
+        public static List<DadosIES> Search(string valor)
+        {
+            //Cria uma nova lista para retornar
+            List<DadosIES> lista = new List<DadosIES>();
+
+            //Cria o componente responsável por desserializar os dados a serem lidos da árvore
+            ProtoNetSerializer<DadosIES> serializer = new ProtoNetSerializer<DadosIES>();
+
+            //Prepara as opções da árvore
+            var tree_options = new BPlusTree<int, DadosIES>.OptionsV2(PrimitiveSerializer.Int32, serializer);
+
+            tree_options.CalcBTreeOrder(8, 30);
+            tree_options.CreateFile = CreatePolicy.IfNeeded;
+            tree_options.FileName = pathBtree;
+
+            //Checa se o arquivo já existe
+            if (File.Exists(pathBtree))
+            {
+                using (var tree = new BPlusTree<int, DadosIES>(tree_options))
+                {
+                    //Varre a árvore buscando o dado
+                    foreach (KeyValuePair<int, DadosIES> par in tree)
+                    {
+                        if (par.Value.ies.COUFIES.IndexOf(valor, StringComparison.OrdinalIgnoreCase) >= 0)
+                        {
+                            lista.Add(par.Value);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                //Erro, a árvore não existe!
+            }
+
+            //Retorna a lista lida
+            return lista;
+        }
+    }
+}

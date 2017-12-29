@@ -23,6 +23,7 @@ namespace AeronauticalOccurrences
             
             FileHelper.LerCSV(path);
 
+            FileHelper.Search("RIO GRANDE DO SUL");
             
         }
 

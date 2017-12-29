@@ -7,7 +7,6 @@ namespace AeronauticalOccurrences
     [ProtoContract]
     class DadosIES
     {
-
         /// <summary>
         /// Código ies
         /// </summary>
@@ -16,7 +15,6 @@ namespace AeronauticalOccurrences
         /// </value>
         [ProtoMember(1)]
         public int CO_IES { get; set; }
-
 
         /// <summary>
         /// Objeto contendo os dados lidos do arquivo CADASTRO_DAS_IES_2011.csv, com o codigo_ies acima
