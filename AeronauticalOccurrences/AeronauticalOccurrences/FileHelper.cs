@@ -100,7 +100,7 @@ namespace AeronauticalOccurrences
             return true;
         }
 
-        public static List<DadosIES> Search(string valor)
+        public static List<DadosIES> Search(string valor, string criterio)
         {
             //Cria uma nova lista para retornar
             List<DadosIES> lista = new List<DadosIES>();
@@ -122,11 +122,37 @@ namespace AeronauticalOccurrences
                 {
                     //Varre a árvore buscando o dado
                     foreach (KeyValuePair<int, DadosIES> par in tree)
-                    {
-                        if (par.Value.ies.NOMEUFIES.IndexOf(valor, StringComparison.OrdinalIgnoreCase) >= 0)
+                    { 
+                        switch(criterio)
                         {
-                            lista.Add(par.Value);
+                            case "NO_IES":
+                                if (par.Value.ies.NO_IES.IndexOf(valor, StringComparison.OrdinalIgnoreCase) >= 0)
+                                {
+                                    lista.Add(par.Value);
+                                } break;
+                            case "REGIAOIES":
+                                if (par.Value.ies.REGIAOIES.IndexOf(valor, StringComparison.OrdinalIgnoreCase) >= 0)
+                                {
+                                    lista.Add(par.Value);
+                                }
+                                break;
+                            case "NOMEUFIES":
+                                if (par.Value.ies.NOMEUFIES.IndexOf(valor, StringComparison.OrdinalIgnoreCase) >= 0)
+                                {
+                                    lista.Add(par.Value);
+                                }
+                                break;
+                            case "MUNICIPIOIES":
+                                if (par.Value.ies.MUNICIPIOIES.IndexOf(valor, StringComparison.OrdinalIgnoreCase) >= 0)
+                                {
+                                    lista.Add(par.Value);
+                                }
+                                break;
+
+
+
                         }
+                      
                     }
                 }
             }
