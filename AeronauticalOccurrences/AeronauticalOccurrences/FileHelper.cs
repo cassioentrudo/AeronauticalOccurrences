@@ -134,5 +134,38 @@ namespace AeronauticalOccurrences
             //Retorna a lista lida
             return lista;
         }
-    }
-}
+
+        /// <summary>
+        /// Atualiza a arvore dado a chave que quer mudar e o novo valor
+        /// </summary>
+        /// <param name="key">chave que deseja mudar</param>
+        /// <param name="new_value">novo valor para atualizar a chave</param>
+        /// <returns>Returna true se a chave foi encontrada e atulizada</returns
+        public static bool Atualiza(int key, DadosIES new_value)
+        {
+            
+            bool output = false;
+
+            //Cria o componente responsável por desserializar os dados a serem lidos da árvore
+            ProtoNetSerializer<DadosIES> serializer = new ProtoNetSerializer<DadosIES>();
+
+            //Prepara as opções da árvore
+            var tree_options = new BPlusTree<int, DadosIES>.OptionsV2(PrimitiveSerializer.Int32, serializer);
+
+            tree_options.CalcBTreeOrder(8, 30);
+            tree_options.CreateFile = CreatePolicy.IfNeeded;
+            tree_options.FileName = pathBtree;
+
+            //Checa se o arquivo já existe
+            if (File.Exists(pathBtree))
+            {
+                using (var tree = new BPlusTree<int, DadosIES>(tree_options))
+                {
+                    //encontra a chave e atualiza o valor
+                    output = tree.TryUpdate(key, new_value);
+                }
+            }
+            return output;
+        }
+    }//class
+}//namespcae

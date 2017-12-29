@@ -1,0 +1,8 @@
+  DadosIES nova = new DadosIES();
+            IES novo = new IES();
+            nova.CO_IES = 1; novo.CO_IES = 1; novo.NO_IES = "teste"; novo.COMUNICIES = "teste"; novo.COMUNICIES12 = "teste"; novo.COREDE = "teste"; novo.COUFIES = "teste"; novo.CO_ANO = 2013;
+            novo.CO_DEP = "teste"; novo.DEP5 = "teste"; novo.DEPADM = "teste"; novo.DEPADM5 = "teste"; novo.DS_COMPLEMENTO_ENDERECO = "teste"; novo.DS_ENDERECO = "teste"; novo.DS_NUMERO_ENDERECO = "teste"; novo.LOCALIES = "teste";
+            novo.LOCIES = "teste"; novo.MANT = "teste"; novo.MANTENEDORA = "teste"; novo.MUNICIPIOIES = "teste"; novo.NIES = "teste"; novo.NOMEORG = "teste"; novo.NOMEUFIES = "teste"; novo.NO_BAIRRO = "teste";
+            novo.NO_PROCURADOR_INTITUCIONAL = "teste"; novo.NU_CEP = "teste"; novo.NU_CNPJ = "teste"; novo.NU_CPF_PROCURADOR = "teste"; novo.NU_FAX = "teste"; novo.NU_TELEFONE = "teste"; novo.NU_TELEFONE_PROCURADOR = "teste"; novo.ORG = "teste"; novo.REDE = "teste"; novo.REGIAOIES = "teste"; novo.REGIES = "teste"; novo.SG_IES = "teste";
+            novo.SIGLA = "teste"; novo.TX_EMAIL = "teste"; novo.TX_EMAIL_PROCURADOR = "teste"; novo.TX_PAGINA_ELETRONICA = "teste";
+            nova.ies = novo;
