@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="OrdenaDados.cs" />
     <Compile Include="ProtoNetSerializer.cs" />
     <Compile Include="FileHelper.cs" />
     <Compile Include="DadosIES.cs" />
