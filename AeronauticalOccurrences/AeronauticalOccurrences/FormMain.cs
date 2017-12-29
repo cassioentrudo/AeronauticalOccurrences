@@ -27,5 +27,17 @@ namespace AeronauticalOccurrences
             
         }
 
+        private void buttonFind_Click(object sender, EventArgs e)
+        {
+            List<DadosIES> list = FileHelper.Search("RIO GRANDE DO SUL");
+
+            foreach (var dado in list)
+            {
+                this.comboSelecioneCidade.Items.Add(dado.ies.NO_IES);
+            }
+
+            
+
+        }
     }
 }

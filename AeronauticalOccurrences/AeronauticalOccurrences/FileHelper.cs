@@ -6,6 +6,8 @@ using System.Windows.Forms;
 using CsvHelper;
 using CSharpTest.Net.Collections;
 using CSharpTest.Net.Serialization;
+using System.Text;
+using System.Globalization;
 
 namespace AeronauticalOccurrences
 {
@@ -25,20 +27,20 @@ namespace AeronauticalOccurrences
         {  
             var dicionario = new Dictionary<int, DadosIES>();
             DadosIES dado_existente;
-                
-            using (StreamReader ies_stream = new StreamReader(caminho_csv_dados))
+
+            using (StreamReader ies_stream = new StreamReader(caminho_csv_dados, Encoding.UTF8, true))
             {
                 try
-                {       
+                {
                     CsvReader leitor = new CsvReader(ies_stream);
-                    
+
                     leitor.Configuration.BadDataFound = null;
                     leitor.Configuration.MissingFieldFound = null;
                     leitor.Read();
                     leitor.ReadHeader();
-                    
+
                     var dados = leitor.GetRecords<IES>().ToList();
-                    
+
                     //lidos os registros, itera todos e os adiciona no dicionário,
                     //conforme necessário
                     foreach (IES dado in dados)
@@ -48,12 +50,12 @@ namespace AeronauticalOccurrences
                         else
                             dicionario.Add(dado.CO_IES, new DadosIES(dado.CO_IES, dado));
                     }
-                    
+
                 }
                 catch (Exception e)
-                { 
+                {
                     MessageBox.Show(e.ToString());
-                    
+
                 }
             }
 
@@ -121,16 +123,12 @@ namespace AeronauticalOccurrences
                     //Varre a árvore buscando o dado
                     foreach (KeyValuePair<int, DadosIES> par in tree)
                     {
-                        if (par.Value.ies.COUFIES.IndexOf(valor, StringComparison.OrdinalIgnoreCase) >= 0)
+                        if (par.Value.ies.NOMEUFIES.IndexOf(valor, StringComparison.OrdinalIgnoreCase) >= 0)
                         {
                             lista.Add(par.Value);
                         }
                     }
                 }
-            }
-            else
-            {
-                //Erro, a árvore não existe!
             }
 
             //Retorna a lista lida
